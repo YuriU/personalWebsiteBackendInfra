@@ -17,6 +17,12 @@ module "source_bucket" {
   name = "${var.download_source_bucket_name}"
 }
 
+module "counter_table" {
+  source            = "./modules/dynamo_db_table"
+  name              = "${var.application_name}_FileDownloadCount"
+  partitionKey      = "FileName"
+  partitionKeyType  = "S"
+}
 
 resource "aws_iam_role" "lambda_exec" {
   name = "serverless_example_lambda"
@@ -44,6 +50,11 @@ resource "aws_iam_role_policy_attachment" "test-attach" {
   policy_arn = "${module.source_bucket.read_only_policy_arn}"
 }
 
+resource "aws_iam_role_policy_attachment" "test-attach2" {
+  role       = "${aws_iam_role.lambda_exec.name}"
+  policy_arn = "${module.counter_table.read_write_policy_arn}"
+}
+
 resource "aws_lambda_function" "function" {
   function_name = "${var.application_name}"
 
@@ -60,13 +71,14 @@ resource "aws_lambda_function" "function" {
   #s3_key    = "v1.0.0/example.zip"
 
   timeout = 30
-  memory_size = 128
+  memory_size = 256
   role = "${aws_iam_role.lambda_exec.arn}"
 
   environment {
     variables = {
       SourceBucket_Name     = "${module.source_bucket.bucket_name}"
       SourceBucket_FileName = "${var.download_source_default_file_name}"
+      Database_CounterTable = "${module.counter_table.table_name}"
     }
   }
 }
