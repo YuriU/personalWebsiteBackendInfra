@@ -61,9 +61,6 @@ resource "aws_lambda_function" "function" {
 
   filename      = "empty_lambda_folder.zip"
 
-  #s3_bucket = "${aws_s3_bucket.pipeline.bucket}"
-  #s3_key    = "v1.0.0/example.zip"
-
   timeout = 30
   memory_size = 256
   role = "${aws_iam_role.lambda_exec.arn}"
@@ -117,7 +114,6 @@ resource "aws_api_gateway_integration" "lambda" {
 resource "aws_api_gateway_deployment" "api" {
   depends_on = [
     "aws_api_gateway_integration.lambda",
-    //"aws_api_gateway_integration.lambda_root",
   ]
 
   rest_api_id = "${aws_api_gateway_rest_api.gateway.id}"
