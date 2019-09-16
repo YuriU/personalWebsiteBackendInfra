@@ -83,6 +83,8 @@ resource "aws_api_gateway_rest_api" "gateway" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  binary_media_types = ["application/msword"]
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -107,6 +109,8 @@ resource "aws_api_gateway_integration" "lambda" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = "${aws_lambda_function.function.invoke_arn}"
+
+  content_handling = "CONVERT_TO_BINARY"
 }
 
 
