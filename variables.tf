@@ -1,4 +1,3 @@
-
 variable "application_name" {
     description = "Name of the application"
     default = "personalWebsiteBackend"
@@ -18,3 +17,16 @@ variable "lambda_name" {
     default = "personalWebsiteBackend"
 }
 
+variable "issue_certificate" {
+    description = "Whether to issue certuificate"
+}
+
+variable "domain_name" {
+    description = "Name of the domain"
+    default = "yuriiulianets.dev"
+}
+
+variable "subdomain_name" {
+    description = "Name of the subdomain"
+    default = "api"
+}

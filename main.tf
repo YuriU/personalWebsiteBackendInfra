@@ -24,6 +24,13 @@ module "counter_table" {
   partitionKeyType  = "S"
 }
 
+module "certificate" {
+  source            = "./modules/certificate"
+  domain_name       = "${var.domain_name}"
+  subdomain_name    = "${var.subdomain_name}"
+  issue_certificate = "${var.issue_certificate}"
+}
+
 resource "aws_iam_role" "lambda_exec" {
   name = "serverless_example_lambda"
 
@@ -131,6 +138,16 @@ resource "aws_lambda_permission" "apigw" {
   source_arn = "${aws_api_gateway_rest_api.gateway.execution_arn}/*/*/*"
 }
 
+resource "aws_api_gateway_domain_name" "example" {
+  #depends_on = ["module.certificate"]
+
+  regional_certificate_arn  = "${module.certificate.certificate_arn}"
+  domain_name               = "${var.subdomain_name}.${var.domain_name}"
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+}
 
 output "base_url" {
   value = "${aws_api_gateway_deployment.api.invoke_url}"
