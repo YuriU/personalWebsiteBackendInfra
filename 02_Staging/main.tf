@@ -12,8 +12,6 @@ terraform {
     }
 }
 
-
-
 module "source_bucket" {
   source = "../modules/source_bucket"
   name = "${var.download_source_bucket_name}"
@@ -30,4 +28,12 @@ module "lambda" {
   source = "../modules/lambda"
   application_name = "mytestlambda"
   attached_policies = ["${module.counter_table.read_write_policy_arn}", "${module.source_bucket.read_only_policy_arn}"]
+  attached_policies_count = 2,
+  lambda_bin_file_name = "empty_lambda_folder.zip"
+  entry_point = "personalWebsiteBackend::personalWebsiteBackend.RequestHandler::HandleRequest"
+  environment_variables = {
+      SourceBucket_Name     = "${module.source_bucket.bucket_name}"
+      SourceBucket_FileName = "${var.download_source_default_file_name}"
+      Database_CounterTable = "${module.counter_table.table_name}"
+  }
 }
