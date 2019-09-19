@@ -13,5 +13,9 @@ variable "lambda_invoke_arn" {
 
 variable "lambda_function_name" {
     description = "Name of lambda"
-  
+}
+
+variable "binary_media_types" {
+    description = "Media types treated as binary"
+    type = "list"
 }

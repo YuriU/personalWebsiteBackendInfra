@@ -44,4 +44,9 @@ module "api_gateway" {
   path_part             = "Hello"
   lambda_invoke_arn     = "${module.lambda.invoke_arn}"
   lambda_function_name  = "${module.lambda.function_name}"
+  binary_media_types    = ["*/*"]
+}
+
+output "base_url" {
+  value = "${module.api_gateway.base_url}"
 }

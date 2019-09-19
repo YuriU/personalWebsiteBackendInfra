@@ -5,7 +5,7 @@ resource "aws_api_gateway_rest_api" "gateway" {
     types = ["REGIONAL"]
   }
 
-  binary_media_types = ["application/msword"]
+  binary_media_types = "${var.binary_media_types}"
 }
 
 resource "aws_api_gateway_resource" "proxy" {
@@ -30,12 +30,13 @@ resource "aws_api_gateway_integration" "lambda" {
   type                    = "AWS_PROXY"
   uri                     = "${var.lambda_invoke_arn}"
 
-  content_handling = "CONVERT_TO_BINARY"
+  content_handling = "CONVERT_TO_TEXT"
 }
 
 resource "aws_api_gateway_deployment" "api" {
   depends_on = [
     "aws_api_gateway_integration.lambda",
+    "aws_api_gateway_rest_api.gateway"
   ]
 
   rest_api_id = "${aws_api_gateway_rest_api.gateway.id}"
