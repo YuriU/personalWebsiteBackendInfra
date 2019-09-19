@@ -47,6 +47,14 @@ module "api_gateway" {
   binary_media_types    = ["*/*"]
 }
 
+module "domain-mapping" {
+  source                = "../modules/domain_mapping"
+  domain_name           = "${var.domain_name}"
+  subdomain_name        = "${var.subdomain_name}" 
+  api_gateway_id        = "${module.api_gateway.api_gateway_id}"
+  api_deployment_stage     = "${module.api_gateway.api_deployment_stage}"
+}
+
 output "base_url" {
   value = "${module.api_gateway.base_url}"
 }
