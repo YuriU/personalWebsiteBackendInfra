@@ -12,11 +12,6 @@ variable "download_source_default_file_name" {
     description = "Name of the file to download"
 }
 
-variable "lambda_name" {
-    description = "Name of the lambda function"
-    default = "personalWebsiteBackend"
-}
-
 variable "domain_name" {
     description = "Name of the domain"
     default = "yuriiulianets.dev"
@@ -24,5 +19,5 @@ variable "domain_name" {
 
 variable "subdomain_name" {
     description = "Name of the subdomain"
-    default = "api"
+    default = "api-staging"
 }
