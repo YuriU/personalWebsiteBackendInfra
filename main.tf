@@ -164,11 +164,13 @@ resource "aws_route53_record" "gateway_record" {
   }
 }
 
+/*
 resource "aws_api_gateway_base_path_mapping" "root_mapping" {
   api_id      = "${aws_api_gateway_rest_api.gateway.id}"
   stage_name  = "${aws_api_gateway_deployment.api.stage_name}"
   domain_name = "${aws_api_gateway_domain_name.gateway_domain.domain_name}"
 }
+*/
 
 output "base_url" {
   value = "${aws_api_gateway_deployment.api.invoke_url}"
