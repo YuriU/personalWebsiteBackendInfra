@@ -47,6 +47,21 @@ module "api_gateway" {
   binary_media_types    = ["*/*"]
 }
 
+module "deployment" {
+  source = "../modules/ci_cd"
+  application_name = "testlambda-staging"
+  
+}
+
+/*
+resource "aws_codebuild_project" "name" {
+  # (resource arguments)
+}
+
+*/
+
+
+
 /*
 module "domain-mapping" {
   source                = "../modules/domain_mapping"
