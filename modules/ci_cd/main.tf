@@ -89,7 +89,7 @@ resource "aws_codebuild_project" "lambda_build" {
 
   source {
     type            = "GITHUB"
-    location        = "https://github.com/YuriU/personalWebsiteBackend.git"
+    location        = "${var.github_location}"
     git_clone_depth = 1
   }
 }

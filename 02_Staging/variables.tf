@@ -21,3 +21,12 @@ variable "subdomain_name" {
     description = "Name of the subdomain"
     default = "api-staging"
 }
+
+variable "github_location" {
+  description = "Location of sources on Github"
+  default = "https://github.com/YuriU/personalWebsiteBackend.git"
+}
+
+variable "github_location_branch" {
+  description = "Github branch"
+}

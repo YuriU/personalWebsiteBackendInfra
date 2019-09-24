@@ -50,7 +50,8 @@ module "api_gateway" {
 module "deployment" {
   source = "../modules/ci_cd"
   application_name = "testlambda-staging"
-  
+  github_location = "${var.github_location}"
+  github_location_branch = "${var.github_location_branch}"
 }
 
 /*
