@@ -93,3 +93,27 @@ resource "aws_codebuild_project" "lambda_build" {
     git_clone_depth = 1
   }
 }
+
+
+resource "aws_codebuild_source_credential" "example" {
+  auth_type = "PERSONAL_ACCESS_TOKEN"
+  server_type = "GITHUB"
+  token = "${var.github_access_token}"
+
+}
+
+resource "aws_codebuild_webhook" "example" {
+  project_name = "${aws_codebuild_project.lambda_build.name}"
+
+   filter_group {
+    filter {
+      type = "EVENT"
+      pattern = "PUSH"
+    }
+
+    filter {
+      type = "HEAD_REF"
+      pattern = "${var.github_location_branch}"
+    }
+  }
+}

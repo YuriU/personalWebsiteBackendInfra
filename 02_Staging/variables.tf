@@ -29,4 +29,9 @@ variable "github_location" {
 
 variable "github_location_branch" {
   description = "Github branch"
+  default = "dev"
+}
+
+variable "github_access_token" {
+  description = "Github access token"
 }

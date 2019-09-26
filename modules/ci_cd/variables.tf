@@ -10,3 +10,7 @@ variable "github_location" {
 variable "github_location_branch" {
   description = "Branch on GitHub"
 }
+
+variable "github_access_token" {
+  description = "Github access token"
+}

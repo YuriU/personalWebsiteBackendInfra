@@ -47,19 +47,14 @@ module "api_gateway" {
   binary_media_types    = ["*/*"]
 }
 
+
 module "deployment" {
   source = "../modules/ci_cd"
   application_name = "testlambda-staging"
   github_location = "${var.github_location}"
   github_location_branch = "${var.github_location_branch}"
+  github_access_token = "${var.github_access_token}"
 }
-
-/*
-resource "aws_codebuild_project" "name" {
-  # (resource arguments)
-}
-
-*/
 
 
 
