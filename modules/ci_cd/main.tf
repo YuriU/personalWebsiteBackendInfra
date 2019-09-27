@@ -43,6 +43,15 @@ resource "aws_iam_role_policy" "policy" {
     },
     {
       "Effect": "Allow",
+      "Resource": [
+        "*"
+      ],
+      "Action": [
+        "lambda:UpdateFunctionCode"
+      ]
+    },
+    {
+      "Effect": "Allow",
       "Action": [
         "s3:*"
       ],
@@ -82,8 +91,8 @@ resource "aws_codebuild_project" "lambda_build" {
     image_pull_credentials_type = "CODEBUILD"
 
     environment_variable {
-      name  = "SOME_KEY1"
-      value = "SOME_VALUE1"
+      name  = "LAMBDA_NAME"
+      value = "${var.lambda_name}"
     }
   }
 

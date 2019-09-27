@@ -1,4 +1,8 @@
 variable "application_name" {
+  description = "Application name"
+}
+
+variable "lambda_name" {
   description = "Lambda name"
 }
 
