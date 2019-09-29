@@ -33,6 +33,7 @@ resource "aws_api_gateway_integration" "lambda" {
   content_handling = "CONVERT_TO_TEXT"
 }
 
+
 resource "aws_api_gateway_deployment" "api" {
   depends_on = [
     "aws_api_gateway_integration.lambda",

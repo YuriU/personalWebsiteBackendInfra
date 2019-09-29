@@ -2,8 +2,12 @@ variable "application_name" {
   description = "Application name"
 }
 
-variable "lambda_name" {
-  description = "Lambda name"
+variable "artifacts_bucket_name" {
+  description = "Bucket name for artifacts"
+}
+
+variable "lambda_function_name" {
+  description = "Lambda function name"
 }
 
 variable "github_location" {

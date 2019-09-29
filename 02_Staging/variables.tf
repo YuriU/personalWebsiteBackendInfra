@@ -1,15 +1,11 @@
+variable "account_prefix" {
+    description = "Used as prefix for S3 bucket creations"
+    default = "jerryhire8test1"
+}
+
 variable "application_name" {
     description = "Name of the application"
-    default = "personalWebsiteBackend"
-}
-
-variable "download_source_bucket_name" {
-    description = "Name of the bucket with sources"
-    default = "jerryhire8test1-source-bucket"
-}
-
-variable "download_source_default_file_name" {
-    description = "Name of the file to download"
+    default = "personalWebsiteBackendStaging"
 }
 
 variable "domain_name" {
@@ -25,6 +21,15 @@ variable "subdomain_name" {
 variable "gateway_path_part" {
     description = "Gateway suffix"
     default = "webSiteBackend"
+}
+
+variable "lambda_entry_point" {
+  description = "Entry point for lambda"
+  default = "personalWebsiteBackend::personalWebsiteBackend.RequestHandler::HandleRequest"
+}
+
+variable "download_source_default_file_name" {
+    description = "Name of the file to download"
 }
 
 variable "github_location" {

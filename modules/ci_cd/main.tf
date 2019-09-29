@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "artifacts_bucket" {
-  bucket = "${var.application_name}-artifacts"
+  bucket = "${var.artifacts_bucket_name}"
   
   force_destroy = true
 }
@@ -92,7 +92,7 @@ resource "aws_codebuild_project" "lambda_build" {
 
     environment_variable {
       name  = "LAMBDA_NAME"
-      value = "${var.lambda_name}"
+      value = "${var.lambda_function_name}"
     }
   }
 
