@@ -41,14 +41,23 @@ module "lambda" {
 module "api_gateway" {
   source                = "../modules/api_gateway"
   application_name      = "mytestlambda"
-  path_part             = "Hello"
+  path_part             = "${var.gateway_path_part}"
   lambda_invoke_arn     = "${module.lambda.invoke_arn}"
   lambda_function_name  = "${module.lambda.function_name}"
   binary_media_types    = ["*/*"]
 }
 
+module "domain-mapping" {
+  source                = "../modules/domain_mapping"
+  domain_name           = "${var.domain_name}"
+  subdomain_name        = "${var.subdomain_name}" 
+  api_gateway_id        = "${module.api_gateway.api_gateway_id}"
+  api_deployment_stage     = "${module.api_gateway.api_deployment_stage}"
+}
 
-
+output "base_url" {
+  value = "${module.api_gateway.base_url}"
+}
 
 module "deployment" {
   source = "../modules/ci_cd"
@@ -60,20 +69,3 @@ module "deployment" {
 }
 
 
-
-
-
-
-/*
-module "domain-mapping" {
-  source                = "../modules/domain_mapping"
-  domain_name           = "${var.domain_name}"
-  subdomain_name        = "${var.subdomain_name}" 
-  api_gateway_id        = "${module.api_gateway.api_gateway_id}"
-  api_deployment_stage     = "${module.api_gateway.api_deployment_stage}"
-}
-*/
-
-output "base_url" {
-  value = "${module.api_gateway.base_url}"
-}

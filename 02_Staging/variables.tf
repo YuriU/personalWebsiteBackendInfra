@@ -22,6 +22,11 @@ variable "subdomain_name" {
     default = "api-staging"
 }
 
+variable "gateway_path_part" {
+    description = "Gateway suffix"
+    default = "webSiteBackend"
+}
+
 variable "github_location" {
   description = "Location of sources on Github"
   default = "https://github.com/YuriU/personalWebsiteBackend.git"
